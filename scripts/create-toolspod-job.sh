@@ -24,8 +24,8 @@ yesno() {
   tmpf="$(mktemp)"
   trap 'rm -f "$tmpf"; exit' EXIT SIGINT SIGTERM
 
-  clusterversion="$(oc get clusterversion version -o custom-columns=version:.spec.desiredUpdate.version --no-headers | perl -lne 'm,(\d+\.\d+)\.\d+, and print $1')"
-  oc create job toolspod --image-registry=registry.redhat.io/openshift4/ose-tools-rhel9:v"$clusterminorversion" \
+  clusterminorversion="$(oc get clusterversion version -o custom-columns=version:.spec.desiredUpdate.version --no-headers | perl -lne 'm,(\d+\.\d+)\.\d+, and print $1')"
+  oc create job toolspod --image=registry.redhat.io/openshift4/ose-tools-rhel9:v"$clusterminorversion" \
      --dry-run=client -o yaml -- sleep 18000 | tee "$tmpf"
 
   echo ""
