@@ -110,7 +110,7 @@ sub run_with_input {
 
   # Decode with openssl
   my $exts = "subjectKeyIdentifier,authorityKeyIdentifier,subjectAltName";
-  my @run_cmd = qw(openssl x509 -noout -subject -issuer -dateopt iso_8601 -dates -ext $exts);
+  my @run_cmd = (qw(openssl x509 -noout -subject -issuer -dateopt iso_8601 -dates -ext), $exts);
 
   my $index = 0;
   for my $c (@certs) {
