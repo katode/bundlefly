@@ -128,7 +128,9 @@ sub run_with_input {
 
     if ($do_print) {
       print "index: $index\n";
-      print "$out\n";
+      $out =~ s/\s*((?:DNS|IP Address):\S+)\s*/\n    ${1}/g;
+      $out =~ s/\s+$//;
+      print "$out\n\n";
     }
 
     $index++;
